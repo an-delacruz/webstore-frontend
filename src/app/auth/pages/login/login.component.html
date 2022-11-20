@@ -1,1 +1,105 @@
-<p>login works!</p>
+<section class="main">
+  <div class="container">
+    <div class="info-container">
+      <img
+        src="../../../../assets/blog-ecommerce-plataform.webp"
+        alt="Web Store"
+      />
+    </div>
+    <div *ngIf="isLogIn" class="login-container">
+      <h1>LOGIN</h1>
+      <mat-divider class="divisor"></mat-divider>
+      <form [formGroup]="loginForm" class="form">
+        <mat-form-field class="field" appearance="outline" [color]="'primary'">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Username"
+            formControlName="username"
+          />
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-error *ngIf="loginForm.controls.username.hasError('required')"
+            >Username is required</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field class="field" appearance="outline" [color]="'primary'">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            placeholder="Password"
+            formControlName="password"
+            type="password"
+          />
+          <mat-icon matSuffix>key</mat-icon>
+          <mat-error *ngIf="loginForm.controls.password.hasError('required')"
+            >Password is required</mat-error
+          >
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="login(loginForm.value)"
+        >
+          LOGIN
+        </button>
+        <div class="register-container">
+          <span class="register-span">Don't have an account?</span>
+          <span class="register-link" (click)="mostrarSignUp()">Sign Up</span>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="isSignUp" class="signup-container">
+      <h1>SIGN UP</h1>
+      <mat-divider class="divisor"></mat-divider>
+      <form [formGroup]="signupForm" class="form">
+        <mat-form-field class="field" appearance="outline" [color]="'primary'">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Name"
+            formControlName="name"
+          />
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-hint *ngIf="signupForm.controls.name.invalid"
+            >Name is required</mat-hint
+          >
+        </mat-form-field>
+        <mat-form-field class="field" appearance="outline" [color]="'primary'">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Username"
+            formControlName="username"
+          />
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-hint *ngIf="signupForm.controls.username.invalid"
+            >Username is required</mat-hint
+          >
+        </mat-form-field>
+
+        <mat-form-field class="field" appearance="outline" [color]="'primary'">
+          <input
+            matInput
+            placeholder="Password"
+            formControlName="password"
+            type="password"
+          />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="signup(signupForm.value)"
+        >
+          SIGN UP
+        </button>
+        <div class="register-container">
+          <span class="register-span">Already have an account?</span>
+          <span class="register-link" (click)="mostrarLogIn()">Log In</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
