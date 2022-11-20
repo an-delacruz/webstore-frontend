@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 import { ProductsComponent } from './pages/products/products.component';
 import { MainComponent } from './pages/main/main.component';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { MainComponent } from './pages/main/main.component';
   ],
   imports: [
     CommonModule,
-    AdminPanelRoutingModule
+    AdminPanelRoutingModule,
+    MaterialModule
   ]
 })
 export class AdminPanelModule { }

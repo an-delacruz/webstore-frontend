@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { StoreRoutingModule } from './store-routing.module';
 import { MainComponent } from './pages/main/main.component';
 import { ShopComponent } from './pages/shop/shop.component';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ShopComponent } from './pages/shop/shop.component';
   ],
   imports: [
     CommonModule,
-    StoreRoutingModule
+    StoreRoutingModule,
+    MaterialModule
   ]
 })
 export class StoreModule { }
