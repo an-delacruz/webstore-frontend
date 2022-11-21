@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Notify } from 'notiflix';
+import { AuthService } from './../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
     ],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private auth: AuthService) {}
   ngOnInit(): void {}
   login(form: any) {
     if (this.loginForm.invalid) {
@@ -49,6 +50,25 @@ export class LoginComponent implements OnInit {
       });
       return;
     }
+
+    this.auth.login(form.username, form.password).subscribe({
+      next: (data: { user: any; token: string }) => {
+        const { token } = data;
+        localStorage.setItem('token', token);
+        Notify.success('Login success', {
+          position: 'center-bottom',
+        });
+      },
+      error: (error) => {
+        console.log(
+          '🚀 ~ file: login.component.ts ~ line 63 ~ LoginComponent ~ this.auth.login ~ error',
+          error
+        );
+        Notify.failure(error.error.message, {
+          position: 'center-bottom',
+        });
+      },
+    });
   }
   signup(form: any) {
     if (this.signupForm.invalid) {
