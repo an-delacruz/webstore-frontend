@@ -20,16 +20,20 @@ export class MainComponent implements OnInit {
     //   this.isLoggedIn = true;
     // }
     if (!localStorage.getItem('token')) {
-      this.router.navigate(['/auth/']);
+      this.isLoggedIn = false;
       return;
     }
-    if (localStorage.getItem('token')) this.getInfoUsuario();
+    if (localStorage.getItem('token')) {
+      this.getInfoUsuario();
+    }
   }
 
   getInfoUsuario() {
     this.authService.getInfoUsuario().subscribe({
       next: (data) => {
-        console.log(data);
+        if (data.user) {
+          this.isLoggedIn = true;
+        }
       },
       error: (err) => {
         Report.failure(
@@ -43,6 +47,7 @@ export class MainComponent implements OnInit {
   }
   logout() {
     this.authService.logout();
-    this.router.navigate(['/auth/']);
+    this.isLoggedIn = false;
+    this.router.navigate(['/']);
   }
 }

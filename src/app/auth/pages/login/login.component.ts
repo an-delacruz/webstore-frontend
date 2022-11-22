@@ -78,9 +78,6 @@ export class LoginComponent implements OnInit {
     this.auth.login(form.username, form.password).subscribe({
       next: (data: { user: any; token: string }) => {
         Loading.remove();
-        const { token } = data;
-        localStorage.setItem('token', token);
-        Loading.remove();
       },
       error: (error) => {
         Loading.remove();

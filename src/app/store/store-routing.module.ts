@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './pages/main/main.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { ProductsAdminComponent } from './pages/products-admin/products-admin.component';
+import { RoleGuard } from '../guards/role.guard';
 
 const routes: Routes = [
   {
@@ -12,6 +13,8 @@ const routes: Routes = [
       {
         path: 'products',
         component: ProductsAdminComponent,
+        canActivate: [RoleGuard],
+        data: { role: 'staff' },
       },
       // {
       //   path: '**',
