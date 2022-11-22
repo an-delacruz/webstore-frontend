@@ -1,0 +1,13 @@
+
+
+.example-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    background-image: url('https://www.paredro.com/wp-content/uploads/2018/12/Origen-del-logo-del-Cruz-Azul-la-evolucio%CC%81n-de-los-escudos.jpg');
+    background-size: cover;
+  }
+.div-card{
+    padding: 20px;
+}

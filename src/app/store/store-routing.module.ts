@@ -16,10 +16,10 @@ const routes: Routes = [
         canActivate: [RoleGuard],
         data: { role: 'staff' },
       },
-      // {
-      //   path: '**',
-      //   component: ShopComponent,
-      // },
+       {
+         path: '**',
+         component: ShopComponent,
+       },
     ],
   },
 ];
