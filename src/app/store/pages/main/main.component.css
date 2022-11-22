@@ -1,0 +1,19 @@
+.nav-bar {
+  padding: 1rem;
+}
+.nav-bar-option {
+  color: white !important;
+}
+.spacer {
+  flex: auto 1;
+}
+.nav-bar-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+.nav-bar-secondary {
+  display: flex;
+  align-items: center;
+}

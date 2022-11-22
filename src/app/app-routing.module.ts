@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: "",
-    pathMatch: "full",
-    loadChildren:() => import("./store/store.module").then((m) => m.StoreModule),
+    path: '',
+    loadChildren: () =>
+      import('./store/store.module').then((m) => m.StoreModule),
   },
   {
     path: 'auth',
@@ -13,12 +13,15 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: () => import('./admin-panel/admin-panel.module').then((m) => m.AdminPanelModule),
-  }
+    loadChildren: () =>
+      import('./admin-panel/admin-panel.module').then(
+        (m) => m.AdminPanelModule
+      ),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,0 +1,84 @@
+<mat-dialog-content>
+  <h1 mat-dialog-title align="center">Product</h1>
+  <mat-divider class="divisor"></mat-divider>
+  <section>
+    <form [formGroup]="productForm" class="form">
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Name</mat-label>
+        <input placeholder="Name" matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Description</mat-label>
+        <textarea
+          placeholder="Description"
+          matInput
+          formControlName="description"
+        ></textarea>
+      </mat-form-field>
+      <div class="field-group">
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Price</mat-label>
+          <input
+            type="number"
+            placeholder="Price"
+            matInput
+            formControlName="price"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Stock</mat-label>
+          <input
+            type="number"
+            placeholder="Stock"
+            matInput
+            formControlName="stock"
+          />
+        </mat-form-field>
+      </div>
+      <a
+        class="btnImg"
+        color="primary"
+        type="button"
+        mat-flat-button
+        (click)="fileUpload.click()"
+      >
+        <input
+          title="subir archivo"
+          type="file"
+          class="file-input"
+          (change)="onFileSelected($event)"
+          #fileUpload
+        />
+
+        {{ fileName || "Choose File" }}
+
+        <mat-icon color="accent">upload</mat-icon>
+      </a>
+    </form>
+  </section>
+</mat-dialog-content>
+<mat-dialog-actions
+  [ngStyle]="{ gap: '1rem' }"
+  fxLayout="row"
+  fxLayoutAlign="flex-end center"
+>
+  <button
+    mat-raised-button
+    class="btn"
+    type="button"
+    [mat-dialog-close]="false"
+    [disabled]="false"
+  >
+    <mat-icon class="mat-18">cancel</mat-icon> Cancelar
+  </button>
+  <button
+    mat-raised-button
+    class="btn"
+    type="btn"
+    color="primary"
+    [disabled]="false"
+    (click)="onSubmit(productForm.value)"
+  >
+    <mat-icon class="mat-18">save</mat-icon> Guardar
+  </button>
+</mat-dialog-actions>

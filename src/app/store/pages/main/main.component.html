@@ -1,4 +1,46 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="nav-bar">
+    <div class="nav-bar-primary">
+      <a routerLink="/" mat-button class="nav-bar-option">
+        <mat-icon>home</mat-icon> Home
+      </a>
+      <a routerLink="/products" mat-button class="nav-bar-option"
+        ><mat-icon>storefront</mat-icon> Products
+      </a>
+    </div>
+
+    <!-- <span class="spacer"></span> -->
+    <div class="nav-bar-secondary">
+      <a
+        routerLink="/auth"
+        mat-button
+        class="nav-bar-option"
+        *ngIf="!isLoggedIn"
+        ><mat-icon>login</mat-icon> Login
+      </a>
+      <a
+        routerLink="/auth/signup"
+        mat-button
+        class="nav-bar-option"
+        *ngIf="!isLoggedIn"
+        ><mat-icon>person_add</mat-icon> Sign Up
+      </a>
+      <a (click)="logout()" mat-button class="nav-bar-option" *ngIf="isLoggedIn"
+        ><mat-icon>logout</mat-icon> Logout
+      </a>
+      <a
+        mat-icon-button
+        class="nav-bar-option"
+        matBadge="{{ itemsInCart }}"
+        matBadgeColor="accent"
+        matBadgePosition="above after"
+        matBadgeSize="small"
+        [matBadgeHidden]="itemsInCart === 0"
+        ><mat-icon>shopping_cart</mat-icon>
+      </a>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
 <div>
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>
-  

@@ -1,0 +1,111 @@
+.main {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  gap: 1rem;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px 20px 30px;
+  margin-top: 1.5vh;
+  overflow: auto;
+  border-radius: 0.5vh;
+  width: 100%;
+}
+.divisor {
+  border-color: #673ab7;
+  border-width: 3px;
+  border-radius: 25px;
+  width: 100%;
+  margin: 1rem 0;
+}
+.options {
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn-reload {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+}
+
+table {
+  width: 100%;
+}
+td,
+th {
+  width: max-content;
+  text-align: center;
+  margin: none;
+}
+
+tr.mat-row {
+  border-bottom: rgba(0, 0, 0, 0.12) !important;
+}
+
+th.mat-header-cell,
+mat-cell {
+  text-align: center !important;
+}
+.tabla {
+  background-color: white;
+  padding: 1rem 0rem;
+  border-radius: 10px;
+}
+
+.filtro {
+  width: 100%;
+}
+
+.tablaFiltro {
+  width: 100%;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  display: grid;
+
+  /*Center children verticaly center*/
+  align-items: center;
+  grid-template-columns: 2rem 1fr 2rem;
+
+  border-bottom: 1px solid;
+  border-bottom-color: rgba(0, 0, 0, 0.12);
+}
+
+.tablaFiltro input {
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.tablaFiltro input:focus {
+  outline: none;
+}
+
+.tablaFiltro input:active {
+  outline: none;
+}
+
+.tablaFiltro input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  text-transform: capitalize;
+}
+.sync {
+  width: fit-content;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 1.5vw;
+  font-weight: 600;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.75);
+  margin-bottom: 0.3rem;
+}
+
+.sync > span {
+  font-size: 1rem;
+  margin-right: 0.25rem;
+}

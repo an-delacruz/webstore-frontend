@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Notify } from 'notiflix';
+import { Notify, Loading, Report } from 'notiflix';
 import { AuthService } from './../../services/auth.service';
+import { ISignUp } from '../../interfaces/ISignUp';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,33 +18,53 @@ export class LoginComponent implements OnInit {
       '',
       [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(4),
         Validators.pattern('[a-zA-Z0-9]*'),
       ],
     ],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
   });
   signupForm = this.fb.group({
-    name: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.pattern('[a-zA-Z ]*'),
-      ],
-    ],
     username: [
       '',
       [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(4),
         Validators.pattern('[a-zA-Z0-9]*'),
       ],
     ],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    re_password: ['', [Validators.required, Validators.minLength(8)]],
+    is_staff: [false],
+    name: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.pattern('[a-zA-Z ]*'),
+      ],
+    ],
+    lastname: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.pattern('[a-zA-Z ]*'),
+      ],
+    ],
   });
-  constructor(private fb: FormBuilder, private auth: AuthService) {}
-  ngOnInit(): void {}
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
+  ngOnInit(): void {
+    if (this.activatedRoute.snapshot.data['isSignUp']) {
+      this.mostrarSignUp();
+    }
+  }
+
   login(form: any) {
     if (this.loginForm.invalid) {
       Notify.failure('Invalid form', {
@@ -50,30 +72,86 @@ export class LoginComponent implements OnInit {
       });
       return;
     }
-
+    Loading.dots('Signing in ', {
+      svgColor: '#5c2b8a',
+    });
     this.auth.login(form.username, form.password).subscribe({
       next: (data: { user: any; token: string }) => {
+        Loading.remove();
         const { token } = data;
         localStorage.setItem('token', token);
-        Notify.success('Login success', {
-          position: 'center-bottom',
-        });
+        Loading.remove();
       },
       error: (error) => {
+        Loading.remove();
         console.log(
           '🚀 ~ file: login.component.ts ~ line 63 ~ LoginComponent ~ this.auth.login ~ error',
           error
         );
-        Notify.failure(error.error.message, {
+
+        Report.failure(
+          'Error',
+          error.error.message || 'Invalid username or password',
+          'OK'
+        );
+      },
+      complete: () => {
+        Notify.success('Login success', {
           position: 'center-bottom',
         });
+        this.router.navigate(['/']);
       },
     });
   }
   signup(form: any) {
     if (this.signupForm.invalid) {
+      Notify.failure('Invalid form', {
+        position: 'center-bottom',
+      });
+      this.signupForm.markAllAsTouched();
       return;
     }
+    if (form.password !== form.re_password) {
+      Notify.failure('Passwords do not match', {
+        position: 'center-bottom',
+      });
+      return;
+    }
+    Loading.dots('Loading...', {
+      svgColor: '#5c2b8a',
+    });
+    const data: ISignUp = {
+      username: form.username,
+      password: form.password,
+      re_password: form.re_password,
+      is_staff: form.is_staff,
+      first_name: form.name,
+      last_name: form.lastname,
+    };
+    this.postSignUp(data);
+  }
+  postSignUp(data: ISignUp) {
+    this.auth.signup(data).subscribe({
+      next: (data: any) => {
+        const { detail } = data;
+        Loading.remove();
+        Notify.success(detail, {
+          position: 'center-bottom',
+        });
+      },
+      error: (error: any) => {
+        Loading.remove();
+        Report.failure(
+          'Error',
+          error.error.message || 'Error during signup',
+          'OK'
+        );
+      },
+      complete: () => {
+        this.signupForm.reset();
+        this.mostrarLogIn();
+      },
+    });
   }
   mostrarSignUp() {
     this.isLogIn = false;

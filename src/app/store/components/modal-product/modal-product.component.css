@@ -1,0 +1,32 @@
+.divisor {
+  border-color: #673ab7;
+  border-width: 3px;
+  border-radius: 25px;
+  width: 100%;
+  margin: 1rem 0;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.field {
+  flex: 1;
+}
+.field-group {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: flex-start;
+  width: 100%;
+  justify-content: space-between;
+}
+.btnImg {
+  width: 240px;
+  height: 40px;
+}
+.file-input {
+  display: none;
+}
+.mat-mdc-dialog-actions {
+  justify-content: flex-end !important;
+}
