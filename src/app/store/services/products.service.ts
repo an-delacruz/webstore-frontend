@@ -17,7 +17,9 @@ export class ProductsService {
       'Authorization',
       `Token ${localStorage.getItem('token') || ''}`
     );
-    return this.http.get(`${this.baseUrl}productos/todos`, {
+    //Append cors headers
+    headers.append('Access-Control-Allow-Origin', '*');
+    return this.http.get(`${this.baseUrl}productos/todos/`, {
       headers,
     });
   }
@@ -26,7 +28,7 @@ export class ProductsService {
       'Authorization',
       `Token ${localStorage.getItem('token') || ''}`
     );
-    return this.http.post(`${this.baseUrl}productos/nuevo`, data, { headers });
+    return this.http.post(`${this.baseUrl}productos/nuevo/`, data, { headers });
   }
   putProduct(data: IProduct): Observable<any> {
     const headers = new HttpHeaders().set(

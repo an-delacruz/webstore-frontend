@@ -13,7 +13,12 @@
       </button>
       <div class="sync">
         <span>Ultima Actualización:&MediumSpace;{{ horaActualizacion }}</span>
-        <button type="button" mat-button color="primary">
+        <button
+          type="button"
+          mat-button
+          color="primary"
+          (click)="getProducts()"
+        >
           <span>Update</span>
           <mat-icon matSuffix>sync</mat-icon>
         </button>
