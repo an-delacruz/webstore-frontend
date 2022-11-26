@@ -7,7 +7,7 @@ import {
   Router,
   CanLoad,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AuthService } from '../auth/services/auth.service';
 
 @Injectable({
@@ -19,17 +19,23 @@ export class SessionGuard implements CanActivate, CanLoad {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
-    if (!localStorage.getItem('token')) {
-      this.router.navigate(['/auth']);
-      return false;
-    }
-    return true;
+    return this.authService.getInfoUsuario().pipe(
+      tap((resp: any) => {
+        console.log(resp);
+        if (!resp.user) {
+          this.router.navigate(['/auth']);
+        }
+      })
+    );
   }
   canLoad(): Observable<boolean> | boolean {
-    if (!localStorage.getItem('token')) {
-      this.router.navigate(['/auth']);
-      return false;
-    }
-    return true;
+    return this.authService.getInfoUsuario().pipe(
+      tap((resp: any) => {
+        console.log(resp);
+        if (!resp.user) {
+          this.router.navigate(['/auth']);
+        }
+      })
+    );
   }
 }

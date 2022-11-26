@@ -85,6 +85,7 @@ export class ModalProductComponent implements OnInit {
       Loading.circle('Updating product...', {
         svgColor: '#5c2b8a',
       });
+      data.id = this.data.id;
       this.putProduct(data);
       return;
     }

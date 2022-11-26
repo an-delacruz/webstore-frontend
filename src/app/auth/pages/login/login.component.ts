@@ -77,7 +77,17 @@ export class LoginComponent implements OnInit {
     });
     this.auth.login(form.username, form.password).subscribe({
       next: (data: { user: any; token: string }) => {
-        Loading.remove();
+        if (data.user) {
+          Notify.success('Login success', {
+            position: 'center-bottom',
+          });
+          this.router.navigate(['/']);
+          Loading.remove();
+        } else {
+          Loading.remove();
+
+          Report.failure('Error', 'Invalid username or password', 'OK');
+        }
       },
       error: (error) => {
         Loading.remove();
@@ -91,12 +101,6 @@ export class LoginComponent implements OnInit {
           error.error.message || 'Invalid username or password',
           'OK'
         );
-      },
-      complete: () => {
-        Notify.success('Login success', {
-          position: 'center-bottom',
-        });
-        this.router.navigate(['/']);
       },
     });
   }
