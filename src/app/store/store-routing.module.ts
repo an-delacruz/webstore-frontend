@@ -17,7 +17,7 @@ const routes: Routes = [
         data: { role: 'staff' },
       },
        {
-         path: '**',
+         path: '',
          component: ShopComponent,
        },
     ],

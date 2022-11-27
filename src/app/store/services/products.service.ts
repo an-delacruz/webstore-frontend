@@ -17,7 +17,7 @@ export class ProductsService {
       'Authorization',
       `Token ${localStorage.getItem('token') || ''}`
     );
-    return this.http.get(`${this.baseUrl}productos/todos`, {
+    return this.http.get(`${this.baseUrl}productos/todos/`, {
       headers,
     });
   }
