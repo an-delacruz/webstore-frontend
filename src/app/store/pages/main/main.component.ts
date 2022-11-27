@@ -2,6 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Report } from 'notiflix';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Router } from '@angular/router';
+import { CartService } from './../../services/cart.service';
+import { IProduct } from './../../interfaces/IProduct';
+
+export interface ICartItem {
+  id: number;
+  id_user: number;
+  product: IProduct;
+  quantity: number;
+}
 
 @Component({
   selector: 'app-main',
@@ -9,7 +18,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  itemsInCart = 0;
+  itemsInCart: ICartItem[] = [];
 
   usuario: any;
 
@@ -17,7 +26,11 @@ export class MainComponent implements OnInit {
 
   isStaff: boolean = false;
   user: any;
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private cartService: CartService
+  ) {}
   ngOnInit(): void {
     // if (localStorage.getItem('token')) {
     //   this.isLoggedIn = true;
@@ -28,6 +41,7 @@ export class MainComponent implements OnInit {
     }
     if (localStorage.getItem('token')) {
       this.getInfoUsuario();
+      this.getUserCart();
     }
   }
 
@@ -43,11 +57,22 @@ export class MainComponent implements OnInit {
       error: (err) => {
         Report.failure(
           'Error',
-          err.error.message || err.detail || 'Error obtaining user information',
+          err.error.message ||
+            err.error.detail ||
+            'Error obtaining user information',
           'OK'
         );
         this.router.navigate(['/auth/']);
       },
+    });
+  }
+
+  getUserCart() {
+    this.cartService.getCart().subscribe((resp: any) => {
+      console.log(resp);
+      this.itemsInCart = resp.map((r: any) => {
+        return { product: r.id_product, ...r };
+      });
     });
   }
   logout() {

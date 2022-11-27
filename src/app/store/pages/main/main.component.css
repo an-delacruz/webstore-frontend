@@ -1,30 +1,78 @@
 .nav-bar {
   padding: 1rem;
 }
+
 .nav-bar-option {
   color: white !important;
 }
+
 .spacer {
   flex: auto 1;
 }
+
 .nav-bar-primary {
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1;
 }
+
 .nav-bar-secondary {
   display: flex;
   align-items: center;
 }
+
 .logo {
   cursor: pointer;
 }
-.logo > img {
+
+.logo>img {
   height: 3rem;
 }
+
 .user {
   margin: 0 1rem;
   font-size: 1rem;
   font-family: cursive;
+}
+
+::ng-deep .mat-mdc-menu-panel.mat-mdc-menu-panel {
+  max-width: min-content !important;
+}
+
+.cart {
+  padding: 1rem;
+}
+
+.cart-item {
+  width: 24rem;
+  height: 4rem;
+  box-sizing: border-box;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 3rem 1fr 5rem;
+}
+
+.cart-item img {
+  width: 3rem;
+  height: auto;
+  object-fit: cover;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cart-item-info>span:first-child {
+  font-weight: 500;
+}
+
+.cat-item-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
