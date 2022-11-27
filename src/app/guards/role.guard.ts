@@ -28,9 +28,9 @@ export class RoleGuard implements CanActivate {
     | boolean
     | UrlTree {
     let url: string = state.url;
+    if (!localStorage.getItem('token')) this.router.navigate(['/auth']);
     return this.authService.getInfoUsuario().pipe(
       tap((resp: any) => {
-        console.log(resp);
         if (!resp.user) {
           this.router.navigate(['/auth']);
           return false;
@@ -41,12 +41,12 @@ export class RoleGuard implements CanActivate {
   }
   checkRole(route: ActivatedRouteSnapshot, url: any): any {
     const requiredRole = route.data['role'];
-    console.log(this.user, requiredRole);
     if (requiredRole == 'staff') {
-      if (this.user.is_staff) {
+      if (this.user.is_staff == true) {
         return true;
       }
     }
+    this.router.navigate(['/']);
     return false;
   }
 }

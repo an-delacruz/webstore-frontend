@@ -94,8 +94,8 @@
               >Username is required</mat-error
             >
           </mat-form-field>
-          <div class="toggle">
-            <span> Are you a seller?</span>
+          <div class="toggle" *ngIf="nuevoAdmin">
+            <span> Staff</span>
             <mat-slide-toggle formControlName="is_staff" color="primary">
             </mat-slide-toggle>
           </div>

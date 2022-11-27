@@ -53,6 +53,8 @@ export class LoginComponent implements OnInit {
       ],
     ],
   });
+
+  nuevoAdmin: boolean = false;
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
@@ -62,6 +64,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.activatedRoute.snapshot.data['isSignUp']) {
       this.mostrarSignUp();
+    }
+    if (this.activatedRoute.snapshot.data['isAdmin']) {
+      this.nuevoAdmin = true;
     }
   }
 

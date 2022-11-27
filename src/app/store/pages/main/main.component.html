@@ -1,10 +1,20 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row class="nav-bar">
+    <div class="logo" routerLink="/">
+      <img src="assets/logo.png" alt="logo" />
+    </div>
+    <div class="user">
+      <span>Bienvenido {{ user?.first_name }} </span>
+    </div>
     <div class="nav-bar-primary">
       <a routerLink="/" mat-button class="nav-bar-option">
         <mat-icon>home</mat-icon> Home
       </a>
-      <a routerLink="/products" mat-button class="nav-bar-option"
+      <a
+        routerLink="/products"
+        mat-button
+        class="nav-bar-option"
+        *ngIf="isStaff"
         ><mat-icon>storefront</mat-icon> Products
       </a>
     </div>

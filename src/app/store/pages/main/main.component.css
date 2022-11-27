@@ -17,3 +17,14 @@
   display: flex;
   align-items: center;
 }
+.logo {
+  cursor: pointer;
+}
+.logo > img {
+  height: 3rem;
+}
+.user {
+  margin: 0 1rem;
+  font-size: 1rem;
+  font-family: cursive;
+}

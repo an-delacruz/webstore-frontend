@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotfoundComponent } from './global/components/notfound/notfound.component';
 
 const routes: Routes = [
   {
@@ -12,11 +13,12 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'admin',
-    loadChildren: () =>
-      import('./admin-panel/admin-panel.module').then(
-        (m) => m.AdminPanelModule
-      ),
+    path: 'notfound',
+    component: NotfoundComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'notfound',
   },
 ];
 
