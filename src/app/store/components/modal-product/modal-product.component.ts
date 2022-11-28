@@ -20,14 +20,7 @@ export class ModalProductComponent implements OnInit {
         Validators.pattern('[a-zA-Z0-9 ]*'),
       ],
     ],
-    description: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.pattern('[a-zA-Z0-9 ]*'),
-      ],
-    ],
+    description: ['', [Validators.required, Validators.minLength(4)]],
     price: [
       0,
       [

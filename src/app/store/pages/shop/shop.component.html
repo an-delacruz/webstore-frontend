@@ -8,7 +8,7 @@
     />
     <mat-card-content class="card-content">
       <span class="product-name">{{ producto.name }}</span>
-      <p>{{ producto.description }}</p>
+      <span>{{ producto.description | truncate: 40:"..." }}</span>
     </mat-card-content>
     <mat-card-actions class="card-actions" [ngStyle]="{ gap: '1rem' }">
       <div class="free-shipping">
