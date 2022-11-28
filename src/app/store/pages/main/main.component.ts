@@ -14,6 +14,9 @@ export class MainComponent implements OnInit {
   usuario: any;
 
   isLoggedIn: boolean = false;
+
+  isStaff: boolean = false;
+  user: any;
   constructor(private authService: AuthService, private router: Router) {}
   ngOnInit(): void {
     // if (localStorage.getItem('token')) {
@@ -33,6 +36,8 @@ export class MainComponent implements OnInit {
       next: (data) => {
         if (data.user) {
           this.isLoggedIn = true;
+          this.isStaff = data.user.is_staff;
+          this.user = data.user;
         }
       },
       error: (err) => {

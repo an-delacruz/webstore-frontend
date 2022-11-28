@@ -6,27 +6,19 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AuthService } from '../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoleGuard implements CanActivate {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
   get user() {
     return this.authService.user;
   }
-  // canActivate(
-  //   route: ActivatedRouteSnapshot,
-  //   state: RouterStateSnapshot
-  // ):
-  //   | Observable<boolean | UrlTree>
-  //   | Promise<boolean | UrlTree>
-  //   | boolean
-  //   | UrlTree {
-  //   return true;
-  // }
+
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -36,16 +28,25 @@ export class RoleGuard implements CanActivate {
     | boolean
     | UrlTree {
     let url: string = state.url;
-    return this.checkRole(next, url);
+    if (!localStorage.getItem('token')) this.router.navigate(['/auth']);
+    return this.authService.getInfoUsuario().pipe(
+      tap((resp: any) => {
+        if (!resp.user) {
+          this.router.navigate(['/auth']);
+          return false;
+        }
+        return this.checkRole(next, url);
+      })
+    );
   }
   checkRole(route: ActivatedRouteSnapshot, url: any): any {
     const requiredRole = route.data['role'];
-    console.log(this.user, requiredRole);
     if (requiredRole == 'staff') {
-      if (this.user.is_staff) {
+      if (this.user.is_staff == true) {
         return true;
       }
     }
+    this.router.navigate(['/']);
     return false;
   }
 }

@@ -46,6 +46,12 @@ export class AuthService {
       'Authorization',
       `Token ${localStorage.getItem('token') || ''}`
     );
-    return this.http.get(`${this.baseUrl}usuarios/me/`, { headers });
+    return this.http.get(`${this.baseUrl}usuarios/me/`, { headers }).pipe(
+      tap((resp: any) => {
+        if (resp.user) {
+          this._user = resp.user;
+        }
+      })
+    );
   }
 }

@@ -18,7 +18,13 @@ export class ProductsAdminComponent implements OnInit {
 
   products: any[] = [];
   dataSourceProducts = new MatTableDataSource<any>(this.products);
-  productsColumns: string[] = ['name', 'description', 'price', 'stock'];
+  productsColumns: string[] = [
+    'name',
+    'description',
+    'price',
+    'stock',
+    'actions',
+  ];
   @ViewChild('productsPaginator') productsPaginator: MatPaginator | any;
 
   constructor(
@@ -60,8 +66,10 @@ export class ProductsAdminComponent implements OnInit {
         });
         this.productsService.deleteProduct(producto.id || 0).subscribe({
           next: (data) => {
-            Loading.remove();
-            console.log(data);
+            if (data) {
+              Report.success('Success', 'Product deleted', 'OK');
+              this.getProducts();
+            }
           },
           error: (err) => {
             Loading.remove();
@@ -75,19 +83,41 @@ export class ProductsAdminComponent implements OnInit {
           },
         });
       },
-      () => {}
+      () => {},
+      {
+        titleColor: '#5c2b8a',
+        okButtonBackground: '#5c2b8a',
+      }
     );
   }
   abrirModalNuevoProducto() {
-    this.dialog.open(ModalProductComponent, {
-      width: '50%',
-    });
+    this.dialog
+      .open(ModalProductComponent, {
+        width: '50%',
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          Loading.circle('Loading products...');
+
+          this.getProducts();
+        }
+      });
   }
   abrirModalEditarProducto(producto: IProduct) {
-    this.dialog.open(ModalProductComponent, {
-      width: '50%',
-      data: producto,
-    });
+    this.dialog
+      .open(ModalProductComponent, {
+        width: '50%',
+        data: producto,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          Loading.circle('Loading products...');
+
+          this.getProducts();
+        }
+      });
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
