@@ -33,8 +33,7 @@ export class ShopComponent implements OnInit {
     };
 
     this.cartService.postCart(data).subscribe((resp: any) => {
-      console.log('resp', resp);
+      this.cartService.cartUpdated.emit(true);
     });
   }
 }
-

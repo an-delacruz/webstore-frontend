@@ -8,6 +8,7 @@ import { IProduct } from './../../interfaces/IProduct';
 export interface ICartItem {
   id: number;
   id_user: number;
+  cost: number;
   product: IProduct;
   quantity: number;
 }
@@ -26,15 +27,17 @@ export class MainComponent implements OnInit {
 
   isStaff: boolean = false;
   user: any;
+
+  total: number = 0;
   constructor(
     private authService: AuthService,
     private router: Router,
     private cartService: CartService
   ) {}
   ngOnInit(): void {
-    // if (localStorage.getItem('token')) {
-    //   this.isLoggedIn = true;
-    // }
+    this.cartService.cartUpdated.subscribe((resp) => {
+      if (resp) this.getUserCart();
+    });
     if (!localStorage.getItem('token')) {
       this.isLoggedIn = false;
       return;
@@ -69,10 +72,12 @@ export class MainComponent implements OnInit {
 
   getUserCart() {
     this.cartService.getCart().subscribe((resp: any) => {
-      console.log(resp);
       this.itemsInCart = resp.map((r: any) => {
         return { product: r.id_product, ...r };
       });
+      this.total = this.itemsInCart.reduce((acc, item) => {
+        return acc + item.cost;
+      }, 0);
     });
   }
   logout() {
@@ -80,4 +85,25 @@ export class MainComponent implements OnInit {
     this.isLoggedIn = false;
     this.router.navigate(['/']);
   }
+  incrementItemInCart(item: ICartItem) {
+    this.cartService.increaseQuantity(item.id).subscribe((resp: any) => {
+      this.getUserCart();
+    });
+  }
+  decrementItemInCart(item: ICartItem) {
+    this.cartService.decreaseQuantity(item.id).subscribe((resp: any) => {
+      this.getUserCart();
+    });
+  }
+  deleteItemInCart(item: ICartItem) {
+    this.cartService.deleteItem(item.id).subscribe((resp: any) => {
+      this.getUserCart();
+    });
+  }
+  clearCart() {
+    this.cartService.clearCart().subscribe((resp: any) => {
+      this.getUserCart();
+    });
+  }
+  checkout() {}
 }

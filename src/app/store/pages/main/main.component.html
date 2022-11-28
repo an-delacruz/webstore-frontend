@@ -56,23 +56,52 @@
 </div>
 
 <mat-menu #cart="matMenu">
-  <div class="cart">
+  <div class="cart" (click)="$event.stopPropagation()">
     <span *ngIf="itemsInCart.length === 0">No items in cart</span>
     <div *ngFor="let item of itemsInCart" class="cart-item">
       <img [src]="item.product.img_url" alt="" />
       <div class="cart-item-info">
         <span>{{ item.product.name }}</span>
-        <span>{{ item.product.price | currency }}</span>
+        <span>{{ item.cost | currency }}</span>
       </div>
       <div class="cat-item-actions">
-        <button mat-icon-button (click)="(true)">
+        <button
+          mat-icon-button
+          (click)="decrementItemInCart(item)"
+          color="primary"
+        >
           <mat-icon>remove_circle</mat-icon>
         </button>
         <span>{{ item.quantity }}</span>
-        <button mat-icon-button (click)="(true)">
+        <button
+          mat-icon-button
+          (click)="incrementItemInCart(item)"
+          color="primary"
+        >
           <mat-icon>add_circle</mat-icon>
         </button>
+        <button mat-icon-button color="warn" (click)="deleteItemInCart(item)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
+    </div>
+    <div *ngIf="itemsInCart.length > 0" class="cart-footer">
+      <button mat-flat-button (click)="clearCart()" class="btn-clear">
+        Clear
+      </button>
+      <div>
+        <span>Total: </span>
+        <span>{{ total | currency }}</span>
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="itemsInCart.length === 0"
+        (click)="checkout()"
+      >
+        Checkout
+      </button>
     </div>
   </div>
 </mat-menu>
