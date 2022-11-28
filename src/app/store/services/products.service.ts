@@ -33,7 +33,7 @@ export class ProductsService {
       'Authorization',
       `Token ${localStorage.getItem('token') || ''}`
     );
-    return this.http.put(`${this.baseUrl}productos/editar/${data.id}`, data, {
+    return this.http.put(`${this.baseUrl}productos/editar/${data.id}/`, data, {
       headers,
     });
   }
@@ -42,7 +42,7 @@ export class ProductsService {
       'Authorization',
       `Token ${localStorage.getItem('token') || ''}`
     );
-    return this.http.delete(`${this.baseUrl}productos/eliminar/${id}`, {
+    return this.http.delete(`${this.baseUrl}productos/eliminar/${id}/`, {
       headers,
     });
   }

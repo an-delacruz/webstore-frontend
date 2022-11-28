@@ -3,15 +3,36 @@
 }
 
 .example-header-image {
-  background-image: url('https://www.paredro.com/wp-content/uploads/2018/12/Origen-del-logo-del-Cruz-Azul-la-evolucio%CC%81n-de-los-escudos.jpg');
+  background-image: url("https://www.paredro.com/wp-content/uploads/2018/12/Origen-del-logo-del-Cruz-Azul-la-evolucio%CC%81n-de-los-escudos.jpg");
   background-size: cover;
 }
-
+.card-img {
+  width: 400px;
+  height: 400px;
+}
 .div-card {
   padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
-
+.card-content {
+  padding: 1rem;
+  border-left: solid 2px #673ab7;
+}
 .product-name {
   font-size: 18px;
   font-weight: 500;
+}
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.free-shipping {
+  font-size: 14px;
+  font-weight: 500;
+  color: #008d06;
+  display: flex;
+  gap: 0.5rem;
 }

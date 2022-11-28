@@ -62,6 +62,7 @@ export class ModalProductComponent implements OnInit {
       this.productForm.patchValue({
         ...data,
       });
+      this.productImg = data.img_url;
     }
   }
   ngOnInit(): void {}
@@ -73,7 +74,12 @@ export class ModalProductComponent implements OnInit {
       this.productForm.markAllAsTouched();
       return;
     }
-
+    if (!this.productImg) {
+      Notify.failure('Image required', {
+        position: 'center-bottom',
+      });
+      return;
+    }
     const data: IProduct = {
       name: form.name,
       description: form.description,
@@ -135,16 +141,23 @@ export class ModalProductComponent implements OnInit {
     });
   }
   onFileSelected(event: any) {
+    console.log(event);
     this.file = event.target.files[0];
-
-    let reader = new FileReader();
-    reader.readAsDataURL(this.file);
-    reader.onload = (_event) => {
-      this.productImg = reader.result as string;
-    };
     if (this.file) {
-      //Aqui se guarda el nombre del archivo.
-      this.fileName = this.file.name.slice(0, 16) + '...';
+      let reader = new FileReader();
+      reader.readAsDataURL(this.file);
+      reader.onload = (_event) => {
+        this.productImg = reader.result as string;
+      };
+      if (this.file) {
+        //Aqui se guarda el nombre del archivo.
+        this.fileName = this.file.name.slice(0, 16) + '...';
+      }
     }
+  }
+  deleteImg() {
+    this.productImg = null;
+    this.fileName = null;
+    this.file = null;
   }
 }

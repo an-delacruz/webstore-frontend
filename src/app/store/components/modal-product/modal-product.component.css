@@ -30,3 +30,15 @@
 .mat-mdc-dialog-actions {
   justify-content: flex-end !important;
 }
+.img-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.img-container img {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+}
