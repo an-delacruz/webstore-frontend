@@ -1,25 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { IProduct } from '../../interfaces/IProduct';
+import { CartService } from '../../services/cart.service';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
-  styleUrls: ['./shop.component.css']
+  styleUrls: ['./shop.component.css'],
 })
-export class ShopComponent {
+export class ShopComponent implements OnInit {
+  productos: IProduct[] = [];
 
-  /*arreglo de productos*/
-  productos = [
-    {id:1, name:'12345', description:'Playera adidas', price:10.55, stock:256, img_url:'http://res.cloudinary.com/dvr13fnbr/image/upload/v1669175986/b7gxfj71yedcizmvou28.webp'},
-    {id:2, name:'123456', description:'Playera nike', price:15.00, stock:100, img_url:'http://res.cloudinary.com/dvr13fnbr/image/upload/v1669175986/b7gxfj71yedcizmvou28.webp'},
-    {id:3, name:'123457', description:'Playera puma', price:20.65, stock:175, img_url:'http://res.cloudinary.com/dvr13fnbr/image/upload/v1669175986/b7gxfj71yedcizmvou28.webp'},
-  ]
-  constructor(){
+  constructor(
+    private productosService: ProductsService,
+    private cartService: CartService
+  ) {}
 
+  ngOnInit(): void {
+    this.getProducts();
   }
 
-  ngOnInit() {
-    //form load
+  getProducts() {
+    this.productosService.getProducts().subscribe((resp) => {
+      this.productos = resp.results;
+    });
   }
-  
+
+  addProductToCart($event: any, id: number) {
+    let data = {
+      id_product: id,
+      quantity: 1,
+    };
+
+    this.cartService.postCart(data).subscribe((resp: any) => {
+      console.log('resp', resp);
+    });
+  }
 }
 
