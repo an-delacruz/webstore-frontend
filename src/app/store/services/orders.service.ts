@@ -10,6 +10,14 @@ export class OrdersService {
 
   constructor(private http: HttpClient) {}
 
+  getUserOrders() {
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Token ${localStorage.getItem('token') || ''}`
+    );
+    return this.http.get(`${this.baseUrl}orders/historial/`, { headers });
+  }
+
   createOrder(direction: string) {
     const headers = new HttpHeaders().set(
       'Authorization',
@@ -20,5 +28,12 @@ export class OrdersService {
       { direction },
       { headers }
     );
+  }
+  cancelOrder(id: number) {
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Token ${localStorage.getItem('token') || ''}`
+    );
+    return this.http.delete(`${this.baseUrl}orders/delete/${id}`, { headers });
   }
 }
