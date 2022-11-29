@@ -105,5 +105,7 @@ export class MainComponent implements OnInit {
       this.getUserCart();
     });
   }
-  checkout() {}
+  checkout() {
+    this.router.navigate(['/order']);
+  }
 }

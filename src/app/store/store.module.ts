@@ -10,6 +10,7 @@ import { ProductsAdminComponent } from './pages/products-admin/products-admin.co
 import { ModalProductComponent } from './components/modal-product/modal-product.component';
 import { TruncatePipe } from '../global/pipes/truncate.pipe';
 import { GlobalModule } from '../global/global.module';
+import { OrderComponent } from './pages/order/order.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { GlobalModule } from '../global/global.module';
     ShopComponent,
     ProductsAdminComponent,
     ModalProductComponent,
+    OrderComponent,
   ],
   imports: [
     CommonModule,

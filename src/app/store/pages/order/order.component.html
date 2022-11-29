@@ -1,0 +1,66 @@
+<main>
+  <h1 [ngStyle]="{ fontWeight: '600', gridColumn:'1/3' }">Cart Checkout</h1>
+  <div
+    [ngStyle]="{ gridColumn:'1/3' ,display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center' }"
+    *ngIf="!itemsInCart.length">
+    <h1 [ngStyle]="{ fontWeight: '600'}">Nothing here</h1>
+    <span>Add products to cart first.</span>
+  </div>
+  <div *ngIf="itemsInCart.length">
+    <div *ngFor="let item of itemsInCart" class="cart-item mat-elevation-z1">
+      <img [src]="item.product.img_url" alt="" />
+      <div class="cart-item-info">
+        <span>{{ item.product.name }}</span>
+        <span>{{ item.cost | currency }}</span>
+      </div>
+      <div class="cat-item-actions">
+        <button mat-icon-button (click)="decrementItemInCart(item)" color="primary">
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+        <span>{{ item.quantity }}</span>
+        <button mat-icon-button (click)="incrementItemInCart(item)" color="primary">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteItemInCart(item)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="totals mat-elevation-z1" *ngIf="itemsInCart.length">
+    <div class="row">
+      <span>Subtotal</span>
+      <span>{{ subtotal() - tax() | currency }}</span>
+    </div>
+    <div class="row">
+      <span>Tax</span>
+      <span>{{ tax() | currency }}</span>
+    </div>
+    <div class="row">
+      <span>Total</span>
+      <span>{{ total() | currency }}</span>
+    </div>
+    <form [formGroup]="addressForm" (submit)="pay(addressForm.value)">
+      <h3>Address Information</h3>
+      <mat-form-field appearance="outline">
+        <mat-label>Street</mat-label>
+        <input matInput formControlName="street" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Aparment Number</mat-label>
+        <input matInput formControlName="number" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>State</mat-label>
+        <input matInput formControlName="state" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Zip Code</mat-label>
+        <input matInput formControlName="zip" />
+      </mat-form-field>
+    </form>
+    <button mat-button type="submit" [ngStyle]="{background:'#fff'}" color="primary" (click)="pay(addressForm.value)">
+      <mat-icon>paid</mat-icon> Pay
+    </button>
+  </div>
+</main>

@@ -13,10 +13,8 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<any> {
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Token ${localStorage.getItem('token') || ''}`
-    );
+    const headers = new HttpHeaders();
+
     return this.http.get(`${this.baseUrl}productos/todos/`, {
       headers,
     });

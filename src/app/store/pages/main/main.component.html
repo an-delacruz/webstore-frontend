@@ -10,43 +10,25 @@
       <a routerLink="/" mat-button class="nav-bar-option">
         <mat-icon>home</mat-icon> Home
       </a>
-      <a
-        routerLink="/products"
-        mat-button
-        class="nav-bar-option"
-        *ngIf="isStaff"
-        ><mat-icon>storefront</mat-icon> Products
+      <a routerLink="/products" mat-button class="nav-bar-option" *ngIf="isStaff">
+        <mat-icon>storefront</mat-icon> Products
       </a>
     </div>
 
     <!-- <span class="spacer"></span> -->
     <div class="nav-bar-secondary">
-      <a
-        routerLink="/auth"
-        mat-button
-        class="nav-bar-option"
-        *ngIf="!isLoggedIn"
-        ><mat-icon>login</mat-icon> Login
+      <a routerLink="/auth" mat-button class="nav-bar-option" *ngIf="!isLoggedIn">
+        <mat-icon>login</mat-icon> Login
       </a>
-      <a
-        routerLink="/auth/signup"
-        mat-button
-        class="nav-bar-option"
-        *ngIf="!isLoggedIn"
-        ><mat-icon>person_add</mat-icon> Sign Up
+      <a routerLink="/auth/signup" mat-button class="nav-bar-option" *ngIf="!isLoggedIn">
+        <mat-icon>person_add</mat-icon> Sign Up
       </a>
-      <a (click)="logout()" mat-button class="nav-bar-option" *ngIf="isLoggedIn"
-        ><mat-icon>logout</mat-icon> Logout
+      <a (click)="logout()" mat-button class="nav-bar-option" *ngIf="isLoggedIn">
+        <mat-icon>logout</mat-icon> Logout
       </a>
       <button mat-icon-button class="nav-bar-option" [matMenuTriggerFor]="cart">
-        <mat-icon
-          matBadge="{{ itemsInCart.length }}"
-          matBadgeColor="accent"
-          matBadgePosition="above after"
-          matBadgeSize="small"
-          [matBadgeHidden]="itemsInCart.length === 0"
-          >shopping_cart</mat-icon
-        >
+        <mat-icon matBadge="{{ itemsInCart.length }}" matBadgeColor="accent" matBadgePosition="above after"
+          matBadgeSize="small" [matBadgeHidden]="itemsInCart.length === 0">shopping_cart</mat-icon>
       </button>
     </div>
   </mat-toolbar-row>
@@ -57,7 +39,7 @@
 
 <mat-menu #cart="matMenu">
   <div class="cart" (click)="$event.stopPropagation()">
-    <span *ngIf="itemsInCart.length === 0">No items in cart</span>
+    <span *ngIf="itemsInCart.length === 0" [ngStyle]="{minWidth:'8rem', display:'block'}">No items in cart</span>
     <div *ngFor="let item of itemsInCart" class="cart-item">
       <img [src]="item.product.img_url" alt="" />
       <div class="cart-item-info">
@@ -65,19 +47,11 @@
         <span>{{ item.cost | currency }}</span>
       </div>
       <div class="cat-item-actions">
-        <button
-          mat-icon-button
-          (click)="decrementItemInCart(item)"
-          color="primary"
-        >
+        <button mat-icon-button (click)="decrementItemInCart(item)" color="primary">
           <mat-icon>remove_circle</mat-icon>
         </button>
         <span>{{ item.quantity }}</span>
-        <button
-          mat-icon-button
-          (click)="incrementItemInCart(item)"
-          color="primary"
-        >
+        <button mat-icon-button (click)="incrementItemInCart(item)" color="primary">
           <mat-icon>add_circle</mat-icon>
         </button>
         <button mat-icon-button color="warn" (click)="deleteItemInCart(item)">
@@ -94,12 +68,7 @@
         <span>{{ total | currency }}</span>
       </div>
 
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="itemsInCart.length === 0"
-        (click)="checkout()"
-      >
+      <button mat-raised-button color="primary" [disabled]="itemsInCart.length === 0" (click)="checkout()">
         Checkout
       </button>
     </div>
