@@ -15,13 +15,25 @@
         <mat-icon>local_shipping</mat-icon>
         <span>Free Shipping</span>
       </div>
+      <div
+        class="stock"
+        [ngClass]="{ verde: producto.stock > 5, rojo: producto.stock <= 2 }"
+      >
+        <span>Stock Left: {{ producto.stock }} </span>
+      </div>
       <button
         mat-raised-button
         color="primary"
         (click)="addProductToCart($event, producto.id!)"
+        [disabled]="producto.stock <= 0"
       >
         <mat-icon> add_shopping_cart </mat-icon> Add to cart
       </button>
+
+      <div class="price">
+        <span>{{ producto.price | currency }}</span>
+      </div>
     </mat-card-actions>
   </mat-card>
 </div>
+<mat-chip-listbox></mat-chip-listbox>

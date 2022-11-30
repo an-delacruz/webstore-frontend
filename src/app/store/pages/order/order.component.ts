@@ -68,7 +68,6 @@ export class OrderComponent implements OnInit {
   }
 
   pay(form: any) {
-    console.log(form);
     if (this.addressForm.invalid) {
       this.addressForm.markAllAsTouched();
       return;

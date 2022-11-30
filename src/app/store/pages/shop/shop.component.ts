@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { IProduct } from '../../interfaces/IProduct';
 import { CartService } from '../../services/cart.service';
 import { ProductsService } from '../../services/products.service';
+import { MainComponent } from '../main/main.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shop',
@@ -13,7 +15,9 @@ export class ShopComponent implements OnInit {
 
   constructor(
     private productosService: ProductsService,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router,
+    private mainComponent: MainComponent
   ) {}
 
   ngOnInit(): void {
@@ -27,6 +31,11 @@ export class ShopComponent implements OnInit {
   }
 
   addProductToCart($event: any, id: number) {
+    if (!this.mainComponent.isLoggedIn) {
+      this.router.navigate(['/auth']);
+      return;
+    }
+
     let data = {
       id_product: id,
       quantity: 1,

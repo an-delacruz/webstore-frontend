@@ -4,6 +4,9 @@ import { AuthService } from '../../../auth/services/auth.service';
 import { Router } from '@angular/router';
 import { CartService } from './../../services/cart.service';
 import { IProduct } from './../../interfaces/IProduct';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalUsuarioComponent } from 'src/app/global/components/modal-usuario/modal-usuario.component';
+import { ModalUsuarioPasswordComponent } from '../../../global/components/modal-usuario-password/modal-usuario-password.component';
 
 export interface ICartItem {
   id: number;
@@ -32,7 +35,8 @@ export class MainComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private dialog: MatDialog
   ) {}
   ngOnInit(): void {
     this.cartService.cartUpdated.subscribe((resp) => {
@@ -83,6 +87,9 @@ export class MainComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.isLoggedIn = false;
+    this.isStaff = false;
+    this.user = null;
+    this.itemsInCart = [];
     this.router.navigate(['/']);
   }
   incrementItemInCart(item: ICartItem) {
@@ -107,5 +114,20 @@ export class MainComponent implements OnInit {
   }
   checkout() {
     this.router.navigate(['/order']);
+  }
+  abrirModalUsuario() {
+    this.dialog
+      .open(ModalUsuarioComponent, {
+        data: this.user,
+      })
+      .afterClosed()
+      .subscribe((resp) => {
+        if (resp) {
+          this.getInfoUsuario();
+        }
+      });
+  }
+  abrirModalPassword() {
+    this.dialog.open(ModalUsuarioPasswordComponent);
   }
 }

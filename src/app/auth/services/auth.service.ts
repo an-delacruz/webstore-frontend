@@ -25,7 +25,6 @@ export class AuthService {
       })
       .pipe(
         tap((resp: any) => {
-          console.log(resp);
           if (resp.user) {
             this._user = resp.user;
             localStorage.setItem('token', resp.token);

@@ -21,7 +21,6 @@ export class SessionGuard implements CanActivate, CanLoad {
   ): Observable<boolean> | boolean {
     return this.authService.getInfoUsuario().pipe(
       tap((resp: any) => {
-        console.log(resp);
         if (!resp.user) {
           this.router.navigate(['/auth']);
         }
@@ -31,7 +30,6 @@ export class SessionGuard implements CanActivate, CanLoad {
   canLoad(): Observable<boolean> | boolean {
     return this.authService.getInfoUsuario().pipe(
       tap((resp: any) => {
-        console.log(resp);
         if (!resp.user) {
           this.router.navigate(['/auth']);
         }

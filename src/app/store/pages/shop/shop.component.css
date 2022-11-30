@@ -1,5 +1,6 @@
 .example-card {
   max-width: 400px;
+  position: relative;
 }
 
 .example-header-image {
@@ -37,4 +38,25 @@
   color: #008d06;
   display: flex;
   gap: 0.5rem;
+}
+.price {
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  position: absolute;
+  right: 1rem;
+  bottom: 5rem;
+}
+.stock {
+  font-size: 12px;
+  font-weight: 500;
+  position: absolute;
+  right: 1rem;
+  bottom: 3.8rem;
+}
+.verde {
+  color: #008d06;
+}
+.rojo {
+  color: #ff0000;
 }

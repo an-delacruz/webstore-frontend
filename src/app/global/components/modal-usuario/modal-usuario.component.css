@@ -1,0 +1,23 @@
+.divisor {
+  border-color: #673ab7;
+  border-width: 3px;
+  border-radius: 25px;
+  width: 100%;
+  margin: 1rem 0;
+}
+.form {
+  margin-top: 1rem;
+}
+.field-group {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: flex-start;
+  width: 100%;
+}
+.field {
+  width: 50%;
+}
+.mat-mdc-dialog-actions {
+  justify-content: flex-end !important;
+}

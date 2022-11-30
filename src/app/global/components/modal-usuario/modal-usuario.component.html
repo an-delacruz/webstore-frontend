@@ -1,0 +1,39 @@
+<mat-dialog-content>
+  <h1 mat-dialog-title align="center">User</h1>
+  <mat-divider class="divisor"></mat-divider>
+  <section>
+    <form [formGroup]="form" class="form">
+      <div class="field-group">
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="first_name" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="last_name" />
+        </mat-form-field>
+      </div>
+    </form>
+  </section>
+</mat-dialog-content>
+<mat-dialog-actions [ngStyle]="{ gap: '1rem' }">
+  <button
+    mat-raised-button
+    class="btn"
+    type="button"
+    [mat-dialog-close]="false"
+    [disabled]="false"
+  >
+    <mat-icon class="mat-18">cancel</mat-icon> Cancelar
+  </button>
+  <button
+    mat-raised-button
+    class="btn"
+    type="btn"
+    color="primary"
+    [disabled]="false"
+    (click)="onSubmit(form.value)"
+  >
+    <mat-icon class="mat-18">save</mat-icon> Guardar
+  </button>
+</mat-dialog-actions>
