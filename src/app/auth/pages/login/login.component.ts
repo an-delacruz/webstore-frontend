@@ -75,6 +75,7 @@ export class LoginComponent implements OnInit {
       Notify.failure('Invalid form', {
         position: 'center-bottom',
       });
+      this.loginForm.markAllAsTouched();
       return;
     }
     Loading.dots('Signing in ', {

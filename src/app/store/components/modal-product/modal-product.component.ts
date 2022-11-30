@@ -134,7 +134,6 @@ export class ModalProductComponent implements OnInit {
     });
   }
   onFileSelected(event: any) {
-    console.log(event);
     this.file = event.target.files[0];
     if (this.file) {
       let reader = new FileReader();
