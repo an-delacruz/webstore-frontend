@@ -33,7 +33,7 @@ export class OrderComponent implements OnInit {
 
   getUserCart() {
     this.cartService.getCart().subscribe((resp: any) => {
-      this.itemsInCart = resp.map((r: any) => {
+      this.itemsInCart = resp.results.map((r: any) => {
         return { product: r.id_product, ...r };
       });
     });
