@@ -7,6 +7,7 @@ import { IProduct } from './../../interfaces/IProduct';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalUsuarioComponent } from 'src/app/global/components/modal-usuario/modal-usuario.component';
 import { ModalUsuarioPasswordComponent } from '../../../global/components/modal-usuario-password/modal-usuario-password.component';
+import { ModalUsuarioOrdersComponent } from 'src/app/global/components/modal-usuario-orders/modal-usuario-orders.component';
 
 export interface ICartItem {
   id: number;
@@ -129,5 +130,10 @@ export class MainComponent implements OnInit {
   }
   abrirModalPassword() {
     this.dialog.open(ModalUsuarioPasswordComponent);
+  }
+  abrirModalOrdenes() {
+    this.dialog.open(ModalUsuarioOrdersComponent, {
+      minWidth: '40%',
+    });
   }
 }

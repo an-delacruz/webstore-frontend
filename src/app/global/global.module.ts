@@ -7,9 +7,10 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { ModalUsuarioComponent } from './components/modal-usuario/modal-usuario.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalUsuarioPasswordComponent } from './components/modal-usuario-password/modal-usuario-password.component';
+import { ModalUsuarioOrdersComponent } from './components/modal-usuario-orders/modal-usuario-orders.component';
 
 @NgModule({
-  declarations: [NotfoundComponent, TruncatePipe, ModalUsuarioComponent, ModalUsuarioPasswordComponent],
+  declarations: [NotfoundComponent, TruncatePipe, ModalUsuarioComponent, ModalUsuarioPasswordComponent, ModalUsuarioOrdersComponent],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   exports: [NotfoundComponent, TruncatePipe],
 })
