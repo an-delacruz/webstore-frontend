@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit {
         } else {
           Loading.remove();
 
-          Report.failure('Error', 'Invalid username or password', 'OK');
+          Report.failure('Error', 'Error while trying to log in.', 'OK');
         }
       },
       error: (error) => {

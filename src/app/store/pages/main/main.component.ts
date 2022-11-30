@@ -6,6 +6,7 @@ import { CartService } from './../../services/cart.service';
 import { IProduct } from './../../interfaces/IProduct';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalUsuarioComponent } from 'src/app/global/components/modal-usuario/modal-usuario.component';
+import { ModalUsuarioPasswordComponent } from '../../../global/components/modal-usuario-password/modal-usuario-password.component';
 
 export interface ICartItem {
   id: number;
@@ -86,6 +87,9 @@ export class MainComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.isLoggedIn = false;
+    this.isStaff = false;
+    this.user = null;
+    this.itemsInCart = [];
     this.router.navigate(['/']);
   }
   incrementItemInCart(item: ICartItem) {
@@ -122,5 +126,8 @@ export class MainComponent implements OnInit {
           this.getInfoUsuario();
         }
       });
+  }
+  abrirModalPassword() {
+    this.dialog.open(ModalUsuarioPasswordComponent);
   }
 }

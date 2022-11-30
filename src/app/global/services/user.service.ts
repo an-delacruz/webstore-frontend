@@ -20,4 +20,13 @@ export class UserService {
       headers,
     });
   }
+  changePassword(data: any): Observable<any> {
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Token ${localStorage.getItem('token') || ''}`
+    );
+    return this.http.put(`${this.baseUrl}usuarios/change_password/`, data, {
+      headers,
+    });
+  }
 }
