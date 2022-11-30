@@ -34,6 +34,15 @@ export class OrdersService {
       'Authorization',
       `Token ${localStorage.getItem('token') || ''}`
     );
-    return this.http.delete(`${this.baseUrl}orders/delete/${id}`, { headers });
+    return this.http.delete(`${this.baseUrl}orders/delete/${id}/`, { headers });
+  }
+  generatePDFOrder(id: number) {
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Token ${localStorage.getItem('token') || ''}`
+    );
+    return this.http.get(`${this.baseUrl}orders/pdf/${id}/`, {
+      headers,
+    });
   }
 }
