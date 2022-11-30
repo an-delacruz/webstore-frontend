@@ -1,0 +1,36 @@
+<main>
+  <div *ngIf="user">
+    <h1>Profile Data</h1>
+    <div class="prop">
+      <span class="tag">Username</span>
+      <span class="value">{{user.username}}</span>
+    </div>
+    <div class="prop">
+      <span class="tag">First Name</span>
+      <span class="value">{{user.first_name}}</span>
+    </div>
+    <div class="prop">
+      <span class="tag">Last Name</span>
+      <span class="value">{{user.last_name}}</span>
+    </div>
+    <div class="prop">
+      <span class="tag">Role</span>
+      <span class="value">{{user.is_staff ? 'Staff': 'Customer'}}</span>
+    </div>
+    <div class="prop">
+      <button mat-raised-button color="primary"> Change Password</button>
+      <button mat-raised-button color="accent"> Edit profile data</button>
+    </div>
+  </div>
+  <div *ngIf="user">
+    <h1>Orders</h1>
+    <div *ngFor="let order of userOrders">
+      <div class="order">
+        <div class="order-header">
+          <span class="order-id">Order #{{order.id}}</span>
+        </div>
+      </div>
+    </div>
+    <pre>{{userOrders | json}}</pre>
+  </div>
+</main>

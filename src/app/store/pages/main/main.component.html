@@ -23,6 +23,9 @@
       <a routerLink="/auth/signup" mat-button class="nav-bar-option" *ngIf="!isLoggedIn">
         <mat-icon>person_add</mat-icon> Sign Up
       </a>
+      <a routerLink="/profile" mat-button class="nav-bar-option" *ngIf="isLoggedIn">
+        <mat-icon>person</mat-icon> Profile
+      </a>
       <a (click)="logout()" mat-button class="nav-bar-option" *ngIf="isLoggedIn">
         <mat-icon>logout</mat-icon> Logout
       </a>

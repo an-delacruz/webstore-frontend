@@ -5,6 +5,7 @@ import { ShopComponent } from './pages/shop/shop.component';
 import { ProductsAdminComponent } from './pages/products-admin/products-admin.component';
 import { RoleGuard } from '../guards/role.guard';
 import { OrderComponent } from './pages/order/order.component';
+import { UserComponent } from './pages/user/user.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
       {
         path: 'order',
         component: OrderComponent,
+      },
+      {
+        path: 'profile',
+        component: UserComponent,
       },
       {
         path: '',
