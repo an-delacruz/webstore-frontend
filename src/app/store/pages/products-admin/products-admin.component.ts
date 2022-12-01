@@ -75,9 +75,7 @@ export class ProductsAdminComponent implements OnInit {
             Loading.remove();
             Report.failure(
               'Error',
-              err.error.message ||
-                err.detail ||
-                'Error obtaining user information',
+              err.error.message || err.detail || 'Error deleting product',
               'OK'
             );
           },
