@@ -74,9 +74,10 @@ export class MainComponent implements OnInit {
 
   getUserCart() {
     this.cartService.getCart().subscribe((resp: any) => {
-      this.itemsInCart = resp.results.map((r: any) => {
-        return { product: r.id_product, ...r };
-      });
+      this.itemsInCart =
+        resp.results?.map((r: any) => {
+          return { product: r.id_product, ...r };
+        }) || [];
       this.total = this.itemsInCart.reduce((acc, item) => {
         return acc + item.cost;
       }, 0);
