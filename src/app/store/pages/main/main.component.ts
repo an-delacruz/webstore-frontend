@@ -7,6 +7,7 @@ import { IProduct } from './../../interfaces/IProduct';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalUsuarioComponent } from 'src/app/global/components/modal-usuario/modal-usuario.component';
 import { ModalUsuarioPasswordComponent } from '../../../global/components/modal-usuario-password/modal-usuario-password.component';
+import { ModalUsuarioOrdersComponent } from 'src/app/global/components/modal-usuario-orders/modal-usuario-orders.component';
 
 export interface ICartItem {
   id: number;
@@ -62,23 +63,21 @@ export class MainComponent implements OnInit {
         }
       },
       error: (err) => {
-        Report.failure(
-          'Error',
-          err.error.message ||
-            err.error.detail ||
-            'Error obtaining user information',
-          'OK'
-        );
-        this.router.navigate(['/auth/']);
+        this.isLoggedIn = false;
+        this.isStaff = false;
+        this.user = null;
+        this.itemsInCart = [];
+        this.authService.logout();
       },
     });
   }
 
   getUserCart() {
     this.cartService.getCart().subscribe((resp: any) => {
-      this.itemsInCart = resp.map((r: any) => {
-        return { product: r.id_product, ...r };
-      });
+      this.itemsInCart =
+        resp.results?.map((r: any) => {
+          return { product: r.id_product, ...r };
+        }) || [];
       this.total = this.itemsInCart.reduce((acc, item) => {
         return acc + item.cost;
       }, 0);
@@ -129,5 +128,10 @@ export class MainComponent implements OnInit {
   }
   abrirModalPassword() {
     this.dialog.open(ModalUsuarioPasswordComponent);
+  }
+  abrirModalOrdenes() {
+    this.dialog.open(ModalUsuarioOrdersComponent, {
+      minWidth: '40%',
+    });
   }
 }

@@ -21,10 +21,14 @@ const routes: Routes = [
       {
         path: 'order',
         component: OrderComponent,
+        canActivate: [RoleGuard],
+        data: { role: 'staff' },
       },
       {
         path: 'profile',
         component: UserComponent,
+        canActivate: [RoleGuard],
+        data: { role: 'staff' },
       },
       {
         path: '',

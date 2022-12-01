@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Loading, Notify, Report } from 'notiflix';
+import { convertStringToPDF } from '../../helpers/convertStringToPDF';
 import { ICartItem } from '../main/main.component';
 import { CartService } from './../../services/cart.service';
 import { OrdersService } from './../../services/orders.service';
@@ -32,7 +33,7 @@ export class OrderComponent implements OnInit {
 
   getUserCart() {
     this.cartService.getCart().subscribe((resp: any) => {
-      this.itemsInCart = resp.map((r: any) => {
+      this.itemsInCart = resp.results.map((r: any) => {
         return { product: r.id_product, ...r };
       });
     });
@@ -101,21 +102,10 @@ export class OrderComponent implements OnInit {
     this.ordersService.generatePDFOrder(idOrder).subscribe({
       next: (resp: any) => {
         const dataurl = `data:application/pdf;base64,${resp}`;
-        const pdf = this.convertStringToPDF(dataurl);
+        const pdf = convertStringToPDF(dataurl);
         const url = window.URL.createObjectURL(pdf);
         window.open(url, '_blank');
       },
     });
   }
-  convertStringToPDF = (dataurl: string) => {
-    var arr: any = dataurl.split(','),
-      mime = arr[0].match(/:(.*?);/)[1],
-      bstr = atob(arr[1]),
-      n = bstr.length,
-      u8arr = new Uint8Array(n);
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new Blob([u8arr], { type: mime });
-  };
 }

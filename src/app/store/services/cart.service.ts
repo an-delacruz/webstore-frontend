@@ -19,7 +19,7 @@ export class CartService {
     );
     //Append cors headers
     headers.append('Access-Control-Allow-Origin', '*');
-    return this.http.get(`${this.baseUrl}carts/`, { headers });
+    return this.http.get(`${this.baseUrl}carts/get-cart/`, { headers });
   }
 
   postCart(data: { id_product: number; quantity: number }): Observable<any> {
