@@ -33,7 +33,11 @@ export class OrderComponent implements OnInit {
 
   getUserCart() {
     this.cartService.getCart().subscribe((resp: any) => {
-      this.itemsInCart = resp.results.map((r: any) => {
+      if (!resp.results) {
+        this.itemsInCart = [];
+        return;
+      }
+      this.itemsInCart = resp.results?.map((r: any) => {
         return { product: r.id_product, ...r };
       });
     });
@@ -41,16 +45,19 @@ export class OrderComponent implements OnInit {
   incrementItemInCart(item: ICartItem) {
     this.cartService.increaseQuantity(item.id).subscribe((resp: any) => {
       this.getUserCart();
+      this.cartService.cartUpdated.emit(true);
     });
   }
   decrementItemInCart(item: ICartItem) {
     this.cartService.decreaseQuantity(item.id).subscribe((resp: any) => {
       this.getUserCart();
+      this.cartService.cartUpdated.emit(true);
     });
   }
   deleteItemInCart(item: ICartItem) {
     this.cartService.deleteItem(item.id).subscribe((resp: any) => {
       this.getUserCart();
+      this.cartService.cartUpdated.emit(true);
     });
   }
 

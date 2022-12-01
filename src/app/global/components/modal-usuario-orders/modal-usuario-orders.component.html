@@ -39,5 +39,8 @@
         </div>
       </div>
     </div>
+    <div *ngIf="orders.length == 0">
+      <h2 align="center">No orders</h2>
+    </div>
   </div>
 </mat-dialog-content>

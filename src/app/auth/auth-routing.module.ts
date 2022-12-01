@@ -19,9 +19,9 @@ const routes: Routes = [
     path: '',
     component: LoginComponent,
     data: {
-      isAdmin: {
+      data: {
         isSignUp: false,
-        nuevoAdmin: false,
+        isAdmin: false,
       },
     },
   },
