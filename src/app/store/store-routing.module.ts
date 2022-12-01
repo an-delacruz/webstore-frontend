@@ -1,3 +1,4 @@
+import { SessionGuard } from './../guards/session.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './pages/main/main.component';
@@ -21,15 +22,12 @@ const routes: Routes = [
       {
         path: 'order',
         component: OrderComponent,
-        canActivate: [RoleGuard],
-        data: { role: 'staff' },
+        canActivate: [SessionGuard],
       },
-      {
-        path: 'profile',
-        component: UserComponent,
-        canActivate: [RoleGuard],
-        data: { role: 'staff' },
-      },
+      // {
+      //   path: 'profile',
+      //   component: UserComponent,
+      // },
       {
         path: '',
         component: ShopComponent,

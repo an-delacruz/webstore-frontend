@@ -19,20 +19,26 @@ export class SessionGuard implements CanActivate, CanLoad {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
+    if (!localStorage.getItem('token')) this.router.navigate(['/auth']);
     return this.authService.getInfoUsuario().pipe(
       tap((resp: any) => {
         if (!resp.user) {
           this.router.navigate(['/auth']);
+          return false;
         }
+        return true;
       })
     );
   }
   canLoad(): Observable<boolean> | boolean {
+    if (!localStorage.getItem('token')) this.router.navigate(['/auth']);
     return this.authService.getInfoUsuario().pipe(
       tap((resp: any) => {
         if (!resp.user) {
           this.router.navigate(['/auth']);
+          return false;
         }
+        return true;
       })
     );
   }
