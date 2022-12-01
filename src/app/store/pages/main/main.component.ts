@@ -63,14 +63,11 @@ export class MainComponent implements OnInit {
         }
       },
       error: (err) => {
-        Report.failure(
-          'Error',
-          err.error.message ||
-            err.error.detail ||
-            'Error obtaining user information',
-          'OK'
-        );
-        this.router.navigate(['/auth/']);
+        this.isLoggedIn = false;
+        this.isStaff = false;
+        this.user = null;
+        this.itemsInCart = [];
+        this.authService.logout();
       },
     });
   }
